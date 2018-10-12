@@ -14,6 +14,7 @@ rows_protvec = protvec_data.shape[0]
 
 for row in range(0,1): #TODO: change it back to rows_protvec to get everything
     dict_key = protvec_data.iloc[[row],[0]]
+    print(dict_key)
     #TODO: parsing the right type and data
     dict_key = dict_key[3:6]
     dict_value = []
