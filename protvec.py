@@ -3,29 +3,33 @@ import pandas as pd
 
 # read protvec file
 protvec_file = "protVec_100d_3grams.csv"
-protvec_data = pd.read_csv(protvec_file, sep="\t", header=0,skiprows=1)
+protvec_data = pd.read_csv(protvec_file, sep="\t", header=0)
 
 # dictionary to hold all 3-grams
 protvec = {}
 
 
+# number of rows
 rows_protvec = protvec_data.shape[0]
 
+# tree = {"hi" : [1,3]}
+# tree["hi"][0]
 
-for row in range(0,1): #TODO: change it back to rows_protvec to get everything
-    dict_key = protvec_data.iloc[[row],[0]]
-    print(dict_key)
-    #TODO: parsing the right type and data
-    dict_key = dict_key[3:6]
-    dict_value = []
+
+for row in range(0,rows_protvec):
+
+    dict_key = protvec_data.iloc[row][0] # [row][column]
+
+    dict_values = []
     for column in range(1,101):
-        dict_value.append(protvec_data.iloc[[row],[column]])
-    protvec[dict_key] = dict_value
+        value = protvec_data.iloc[0][column]
+        dict_values.append(value)
+    protvec[dict_key] = dict_values
+    if row % 500 == 0:
+        print(str(row) + " / 9048")
 
 
-# protvec["AAA"]
-#
-#protvec.iloc[[0],[0]]
+# TODO: check whether dictionary is created in the correct way and how I can retrieve specific list positions
 
 
 # test sequence
@@ -40,6 +44,7 @@ for i in range(0,100):
 # iterate overall overlapping 3-grams (e.g. MAK, AKL, KLP, LPQ,...)
 for i in range(0, len(seq)-2, 1):
     threegram = seq[i:i+3]
+    print(seq[i:i+3])
     #prot_vec_3_gram = protvec[threegram]
     sequence_vec = sequence_vec #+ prot_vec_3_gram
 
